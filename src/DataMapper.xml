@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pulan.dao.MessageDao">
+    
+    <!-- 先定义一个Interface，UserMapper，然后Mapper文件的namespace指向的就是这个Interface， UserInterface里定义的方法和UserMapper.xml文件中的一样, 
+        然后代码里直接使用接口 -->
+        
+    <resultMap type="Message" id="Message" >
+        <result property="id" column="id" />	
+        <result property="CreateTime" column="CreateTime" />	
+        <result property="Content" column="Content" />
+        <result property="ToUserName" column="ToUserName" />
+        <result property="FromUserName" column="FromUserName" />
+        <result property="MsgType" column="MsgType" />
+        <result property="MsgId" column="MsgId" />
+    </resultMap>
+   <select id="getMessages" parameterType="Map" resultMap="Message">
+   select * from message
+   </select>
+   <insert id="addMessage" parameterType="Map">
+    insert into message (CreateTime,Content,ToUserName,FromUserName,MsgType,MsgId) 
+    values(#{CreateTime},#{Content},#{ToUserName},#{FromUserName},#{MsgType},#{MsgId})
+   </insert>
+</mapper>
