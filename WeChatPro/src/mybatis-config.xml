@@ -13,6 +13,7 @@
     </settings>
     <typeAliases>
        <typeAlias alias="Message" type="com.pulan.entity.Message"/>
+       <typeAlias alias="UserInfo" type="com.pulan.entity.UserInfo"/>
     </typeAliases>
   
   
