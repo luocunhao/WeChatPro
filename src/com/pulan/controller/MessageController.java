@@ -31,12 +31,12 @@ public class MessageController {
 	private static Logger logger = Logger.getLogger(MessageController.class);
 	@Autowired
    private MessageService messageServiceImpl;
-//    @RequestMapping(value="getMessages")
-//    public String getMessages(ModelMap mm){
-//    	List<Message> list = messageServiceImpl.getMessages();
-//    	System.out.println(list.get(0).toString());
-//    	return "";
-//    }
+    @RequestMapping(value="getMessages")
+    public String getMessages(ModelMap mm){
+    	List<Message> list = messageServiceImpl.getMessages();
+    	System.out.println(list.get(0).toString());
+    	return "";
+    }
     @RequestMapping(value="/lch",method={RequestMethod.GET})
     @ResponseBody
     public String validate(HttpServletRequest request,HttpServletResponse response) throws IOException{
