@@ -17,8 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.pulan.entity.Message;
+import com.pulan.entity.WechatUserHis;
+import com.pulan.entity.WechatValueBeh;
 import com.pulan.service.CoreService;
 import com.pulan.service.MessageService;
+import com.pulan.service.WechatUserHisService;
+import com.pulan.service.WechatValueBehService;
 import com.pulan.serviceimpl.MessageServiceImpl;
 import com.pulan.utils.MessageUtil;
 import com.pulan.utils.SignUtil;
@@ -30,7 +34,11 @@ import com.pulan.utils.SignUtil;
 public class MessageController {
 	private static Logger logger = Logger.getLogger(MessageController.class);
 	@Autowired
-   private MessageService messageServiceImpl;
+    private MessageService messageServiceImpl;
+	@Autowired
+	private WechatValueBehService wechatValueBehServiceImpl;
+	@Autowired
+	private WechatUserHisService WechatUserHisServiceImpl;
     @RequestMapping(value="getMessages")
     public String getMessages(ModelMap mm){
     	List<Message> list = messageServiceImpl.getMessages();
@@ -71,12 +79,21 @@ public class MessageController {
          //微信服务器POST消息时用的是UTF-8编码，在接收时也要用同样的编码，否则中文会乱码；
        // response.setCharacterEncoding("UTF-8"); //在响应消息（回复消息给用户）时，也将编码方式设置为UTF-8，原理同上；
         //初始化配置文件
-        String respMessage = CoreService.processRequest(request);//调用CoreService类的processRequest方法接收、处理消息，并得到处理结果；
-        messageServiceImpl.addMessage(request);
+    	Message message = MessageUtil.request2Message(request);
+    	WechatValueBeh wechatValueBeh = wechatValueBehServiceImpl.getWechatValueBehByEventType(message.getContent());
+    	if(wechatValueBeh!=null){
+    	WechatUserHis wechatUserHis = new WechatUserHis(message.getFromUserName(),wechatValueBeh.getUsernfo(),
+    			wechatValueBeh.getGrade(),wechatValueBeh.getSales(),wechatValueBeh.getCustomer());
+    	WechatUserHisServiceImpl.addWechatUserHis(wechatUserHis);
+    	}
+    	messageServiceImpl.addMessage(message);
+        String respMessage = CoreService.processRequest(message);//调用CoreService类的processRequest方法接收、处理消息，并得到处理结果；
         // 响应消息  
         //调用response.getWriter().write()方法将消息的处理结果返回给用户
         
-    //	MessageUtil.message(request,response);
+        //	MessageUtil.message(request,response);
+        logger.info(respMessage);
     	return respMessage;
     }
+    
 }

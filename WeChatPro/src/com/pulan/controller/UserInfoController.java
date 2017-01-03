@@ -16,9 +16,9 @@ public class UserInfoController {
     private UserInfoService userInfoServiceImpl;
     @RequestMapping("getUserInfos")
     @ResponseBody
-	public String getUserInfos(){
+	public List<UserInfo> getUserInfos(){
 		List<UserInfo> list = userInfoServiceImpl.getUserInfos();
 		System.out.println(list.get(0).toString());
-    	return list.toString();
+    	return list;
     }
 }
