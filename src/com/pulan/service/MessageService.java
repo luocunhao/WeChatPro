@@ -8,5 +8,5 @@ import com.pulan.entity.Message;
 
 public interface MessageService {
     public List<Message> getMessages();
-    public void addMessage(HttpServletRequest request) throws Exception;
+    public void addMessage(Message message);
 }

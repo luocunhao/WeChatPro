@@ -12,8 +12,10 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
+    <typeAlias alias="WechatUserHis" type="com.pulan.entity.WechatUserHis"/>
        <typeAlias alias="Message" type="com.pulan.entity.Message"/>
        <typeAlias alias="UserInfo" type="com.pulan.entity.UserInfo"/>
+       <typeAlias alias="WechatValueBeh" type="com.pulan.entity.WechatValueBeh"/>
     </typeAliases>
   
   
