@@ -3,21 +3,23 @@ package com.pulan.entity;
 public class WechatValueBeh {
    private int id;
    private String event_type;
-   private String usernfo;
+   private String userinfo;
    private String grade;
    private String sales;
    private String customer;
 public WechatValueBeh() {
 	// TODO Auto-generated constructor stub
 }
-public WechatValueBeh(int id, String event_type, String usernfo, String grade, String sales, String customer) {
+
+public WechatValueBeh(int id, String event_type, String userinfo, String grade, String sales, String customer) {
 	this.id = id;
 	this.event_type = event_type;
-	this.usernfo = usernfo;
+	this.userinfo = userinfo;
 	this.grade = grade;
 	this.sales = sales;
 	this.customer = customer;
 }
+
 public int getId() {
 	return id;
 }
@@ -30,12 +32,15 @@ public String getEvent_type() {
 public void setEvent_type(String event_type) {
 	this.event_type = event_type;
 }
-public String getUsernfo() {
-	return usernfo;
+
+public String getUserinfo() {
+	return userinfo;
 }
-public void setUsernfo(String usernfo) {
-	this.usernfo = usernfo;
+
+public void setUserinfo(String userinfo) {
+	this.userinfo = userinfo;
 }
+
 public String getGrade() {
 	return grade;
 }
@@ -54,10 +59,11 @@ public String getCustomer() {
 public void setCustomer(String customer) {
 	this.customer = customer;
 }
+
 @Override
 public String toString() {
-	return "WechatValueBeh [id=" + id + ", event_type=" + event_type + ", usernfo=" + usernfo + ", grade=" + grade
+	return "WechatValueBeh [id=" + id + ", event_type=" + event_type + ", userinfo=" + userinfo + ", grade=" + grade
 			+ ", sales=" + sales + ", customer=" + customer + "]";
 }
-   
+
 }

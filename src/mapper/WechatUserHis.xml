@@ -22,4 +22,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="getNewUserBeh" resultMap="WechatUserHis">
    select * from wecaht_user_history order by id desc limit 1
    </select>
+    <select id="getAllUserHis" resultMap="WechatUserHis">
+   select * from wecaht_user_history 
+   </select>
+     <select id="getUserHisForPage" resultMap="WechatUserHis" parameterType="Map">
+   select * from wecaht_user_history order by id desc limit #{page},10;
+   </select>
 </mapper>

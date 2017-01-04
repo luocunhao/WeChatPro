@@ -84,7 +84,7 @@ public class MessageController {
     	WechatValueBeh wechatValueBeh = wechatValueBehServiceImpl.getWechatValueBehByEventType(message.getContent());
     	//若匹配结果不为空 则插入wechat_user_his表中
     	if(wechatValueBeh!=null){
-    	WechatUserHis wechatUserHis = new WechatUserHis(message.getFromUserName(),wechatValueBeh.getUsernfo(),
+    	WechatUserHis wechatUserHis = new WechatUserHis(message.getFromUserName(),wechatValueBeh.getUserinfo(),
     			wechatValueBeh.getGrade(),wechatValueBeh.getSales(),wechatValueBeh.getCustomer());
     	wechatUserHisServiceImpl.addWechatUserHis(wechatUserHis);
     	}
@@ -93,11 +93,19 @@ public class MessageController {
     	//图灵机器人回复
         String respMessage = CoreService.processRequest(message);//调用CoreService类的processRequest方法接收、处理消息，并得到处理结果；
         // 响应消息  
+        String responseMessage = "";
         //调用response.getWriter().write()方法将消息的处理结果返回给用户
         
         //	MessageUtil.message(request,response);
         logger.info(respMessage);
-    	return respMessage;
+        if(respMessage.contains("北京光年无限科技有限公司")){
+        	String respMessage1 = respMessage.replace("北京光年无限科技有限公司", "普兰大数据");
+        	responseMessage = respMessage1.replace("俞志晨", "你大哥");
+        }
+        if(respMessage.contains("张二宝")){
+        	responseMessage = respMessage.replace("张二宝", "徐凡");
+        }
+    	return responseMessage;
     }
     
 }

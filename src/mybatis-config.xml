@@ -13,6 +13,10 @@
     </settings>
     <typeAliases>
     <typeAlias alias="WechatUserHis" type="com.pulan.entity.WechatUserHis"/>
+    <typeAlias alias="WechatBeh" type="com.pulan.entity.WechatBeh"/>
+    <typeAlias alias="WechatCusAction" type="com.pulan.entity.WechatCusAction"/>
+    <typeAlias alias="WechatSalesAction" type="com.pulan.entity.WechatSalesAction"/>
+    <typeAlias alias="WechatGrade" type="com.pulan.entity.WechatGrade"/>
        <typeAlias alias="Message" type="com.pulan.entity.Message"/>
        <typeAlias alias="UserInfo" type="com.pulan.entity.UserInfo"/>
        <typeAlias alias="WechatValueBeh" type="com.pulan.entity.WechatValueBeh"/>
