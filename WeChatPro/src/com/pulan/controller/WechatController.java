@@ -12,6 +12,7 @@ import com.pulan.service.WechatUserHisService;
 public class WechatController {
 	@Autowired
 	private WechatUserHisService wechatUserHisServiceImpl;
+	
     @RequestMapping("getNewUserBeh")
     @ResponseBody
 	public WechatUserHis getNewUserBeh(){
