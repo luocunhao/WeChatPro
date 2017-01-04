@@ -7,7 +7,12 @@ public class Test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-    System.out.println(TulingApiProcess.getTulingResult(""));
+		String newrespMessage ="";
+		String respMessage = "北京光年无限科技有限公司,CEO是俞志晨";
+		if(respMessage.contains("北京光年无限科技有限公司")){
+         newrespMessage = respMessage.replace("北京光年无限科技有限公司", "普兰大数据");
+        }
+		System.out.println(newrespMessage);
 	}
 
 }

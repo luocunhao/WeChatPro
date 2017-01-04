@@ -1,5 +1,7 @@
 package com.pulan.serviceimpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,16 @@ public class WechatUserHisServiceImpl implements WechatUserHisService{
 	public WechatUserHis getNewUserBeh() {
 		// TODO Auto-generated method stub
 		return wechatUserHisDao.getNewUserBeh();
+	}
+	@Override
+	public List<WechatUserHis> getAllUserHis() {
+		// TODO Auto-generated method stub
+		return wechatUserHisDao.getAllUserHis();
+	}
+	@Override
+	public List<WechatUserHis> getUserHisForPage(int page) {
+		// TODO Auto-generated method stub
+		return wechatUserHisDao.getUserHisForPage(page);
 	}
     
 }
