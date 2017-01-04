@@ -38,7 +38,7 @@ public class MessageController {
 	@Autowired
 	private WechatValueBehService wechatValueBehServiceImpl;
 	@Autowired
-	private WechatUserHisService WechatUserHisServiceImpl;
+	private WechatUserHisService wechatUserHisServiceImpl;
     @RequestMapping(value="getMessages")
     public String getMessages(ModelMap mm){
     	List<Message> list = messageServiceImpl.getMessages();
@@ -80,13 +80,17 @@ public class MessageController {
        // response.setCharacterEncoding("UTF-8"); //在响应消息（回复消息给用户）时，也将编码方式设置为UTF-8，原理同上；
         //初始化配置文件
     	Message message = MessageUtil.request2Message(request);
+    	//根据客户行为 匹配 客户价值等级
     	WechatValueBeh wechatValueBeh = wechatValueBehServiceImpl.getWechatValueBehByEventType(message.getContent());
+    	//若匹配结果不为空 则插入wechat_user_his表中
     	if(wechatValueBeh!=null){
     	WechatUserHis wechatUserHis = new WechatUserHis(message.getFromUserName(),wechatValueBeh.getUsernfo(),
     			wechatValueBeh.getGrade(),wechatValueBeh.getSales(),wechatValueBeh.getCustomer());
-    	WechatUserHisServiceImpl.addWechatUserHis(wechatUserHis);
+    	wechatUserHisServiceImpl.addWechatUserHis(wechatUserHis);
     	}
+    	//用户的行为数据插入message表中
     	messageServiceImpl.addMessage(message);
+    	//图灵机器人回复
         String respMessage = CoreService.processRequest(message);//调用CoreService类的processRequest方法接收、处理消息，并得到处理结果；
         // 响应消息  
         //调用response.getWriter().write()方法将消息的处理结果返回给用户

@@ -13,6 +13,7 @@ public class WechatUserHisServiceImpl implements WechatUserHisService{
 	@Override
 	public void addWechatUserHis(WechatUserHis wechatUserHis) {
 		// TODO Auto-generated method stub
+		System.out.println(wechatUserHis.toString());
 		wechatUserHisDao.addWechatUserHis(wechatUserHis);
 	}
 	@Override
