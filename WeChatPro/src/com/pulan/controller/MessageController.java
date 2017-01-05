@@ -21,6 +21,7 @@ import com.pulan.entity.WechatUserHis;
 import com.pulan.entity.WechatValueBeh;
 import com.pulan.service.CoreService;
 import com.pulan.service.MessageService;
+import com.pulan.service.UserInfoService;
 import com.pulan.service.WechatUserHisService;
 import com.pulan.service.WechatValueBehService;
 import com.pulan.serviceimpl.MessageServiceImpl;
@@ -39,6 +40,8 @@ public class MessageController {
 	private WechatValueBehService wechatValueBehServiceImpl;
 	@Autowired
 	private WechatUserHisService wechatUserHisServiceImpl;
+	@Autowired
+	private UserInfoService userInfoServiceImpl;
     @RequestMapping(value="getMessages")
     public String getMessages(ModelMap mm){
     	List<Message> list = messageServiceImpl.getMessages();
@@ -84,12 +87,17 @@ public class MessageController {
     	WechatValueBeh wechatValueBeh = wechatValueBehServiceImpl.getWechatValueBehByEventType(message.getContent());
     	//若匹配结果不为空 则插入wechat_user_his表中
     	if(wechatValueBeh!=null){
+       logger.info("wechatValueBeh不为空");
     	WechatUserHis wechatUserHis = new WechatUserHis(message.getFromUserName(),wechatValueBeh.getUserinfo(),
     			wechatValueBeh.getGrade(),wechatValueBeh.getSales(),wechatValueBeh.getCustomer());
+    	//用户详细信息存入user_info表:用户产生的行为 匹配到价值才会新增到用户信息表
+    	logger.info("getFromUserName:"+message.getFromUserName());
+    	userInfoServiceImpl.addUserInfo(message.getFromUserName());
     	wechatUserHisServiceImpl.addWechatUserHis(wechatUserHis);
     	}
     	//用户的行为数据插入message表中
     	messageServiceImpl.addMessage(message);
+    	
     	//图灵机器人回复
         String respMessage = CoreService.processRequest(message);//调用CoreService类的processRequest方法接收、处理消息，并得到处理结果；
         // 响应消息  

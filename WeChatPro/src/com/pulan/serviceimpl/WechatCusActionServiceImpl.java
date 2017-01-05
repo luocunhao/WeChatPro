@@ -17,5 +17,13 @@ public class WechatCusActionServiceImpl implements WechatCusActionService {
 		// TODO Auto-generated method stub
 		return wechatCusActionDao.getAllWechatCusAction();
 	}
+	@Override
+	public void addWechatCusAction(List<String> customers) {
+		wechatCusActionDao.deleteAll();
+		for(String customer:customers){
+		wechatCusActionDao.addWechatCusAction(customer);
+		}
+		}
+	}
 
-}
+

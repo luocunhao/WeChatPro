@@ -6,4 +6,5 @@ import com.pulan.entity.WechatGrade;
 
 public interface WechatGradeService {
 	public List<WechatGrade> getAllWechatGrade();
+	public void addWechatGrade(List<String> grades);
 }

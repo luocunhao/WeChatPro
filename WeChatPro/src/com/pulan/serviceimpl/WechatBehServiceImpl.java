@@ -17,5 +17,14 @@ public class WechatBehServiceImpl implements WechatBehService {
 		// TODO Auto-generated method stub
 		return wechatBehDao.getAllWechatBeh();
 	}
+	@Override
+	public void addWechatBeh(List<String> userinfos) {
+		// TODO Auto-generated method stub
+		wechatBehDao.deleteAll();
+		for(String userinfo:userinfos){
+		wechatBehDao.addWechatBeh(userinfo);
+		}
+		}
+	}
 
-}
+
