@@ -6,4 +6,5 @@ import com.pulan.entity.WechatSalesAction;
 
 public interface WechatSalesActionService {
     public List<WechatSalesAction> getAllWechatSalesAction();
+    public void addWechatSales(List<String> sales);
 }

@@ -15,6 +15,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="sales" column="sales" />
         <result property="customer" column="customer" />
     </resultMap>
+    
+    <resultMap type="WechatValueBeh" id="WechatValueBeh" >
+        <result property="id" column="id" />	
+        <result property="event_type" column="event_type" />	
+        <result property="userinfo" column="userinfo" />
+        <result property="grade" column="grade" />
+        <result property="sales" column="sales" />
+        <result property="customer" column="customer"/>
+    </resultMap>
    <insert id="addWechatUserHis" parameterType="Map">
     insert into wecaht_user_history (username,userinfo,grade,sales,customer) 
     values (#{username},#{userinfo},#{grade},#{sales},#{customer})
@@ -28,4 +37,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
      <select id="getUserHisForPage" resultMap="WechatUserHis" parameterType="Map">
    select * from wecaht_user_history order by id desc limit #{page},10;
    </select>
+   <update id="updateByWcValBeh" parameterType="WechatValueBeh">
+   update wecaht_user_history set 
+   grade=#{grade},
+   sales=#{sales},
+   customer=#{customer}
+   where userinfo=#{userinfo}
+   </update>
 </mapper>

@@ -14,5 +14,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    <select id="getAllWechatGrade" resultMap="WechatGrade">
     select * from wecaht_grade
    </select>
- 
+ <insert id="addWechatGrade">
+   insert into wecaht_grade(grade) values(#{grade})
+   </insert>
+   <delete id="deleteAll">
+   delete from wecaht_grade
+   </delete>
 </mapper>

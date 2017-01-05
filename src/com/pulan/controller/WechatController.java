@@ -1,16 +1,19 @@
 package com.pulan.controller;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.pulan.dao.WechatValueBehDao;
 import com.pulan.entity.WechatBeh;
 import com.pulan.entity.WechatCusAction;
 import com.pulan.entity.WechatGrade;
@@ -23,9 +26,11 @@ import com.pulan.service.WechatGradeService;
 import com.pulan.service.WechatSalesActionService;
 import com.pulan.service.WechatUserHisService;
 import com.pulan.service.WechatValueBehService;
+import com.pulan.utils.Strings2listUtil;
 
 @Controller
 public class WechatController {
+	private static Logger logger = Logger.getLogger(MessageController.class);
 	@Autowired
 	private WechatUserHisService wechatUserHisServiceImpl;
 	@Autowired
@@ -36,6 +41,8 @@ public class WechatController {
 	private WechatSalesActionService wechatSalesActionServiceImpl;
 	@Autowired
 	private WechatGradeService wechatGradeServiceImpl;
+	@Autowired
+	private WechatValueBehService wechatValueBehServiceImpl;
     @RequestMapping("getNewUserBeh")
     @ResponseBody
 	public WechatUserHis getNewUserBeh(){
@@ -69,7 +76,31 @@ public class WechatController {
     	return list;
     }
     @RequestMapping("addFourObj")
-    public void addFourObj(HttpServletRequest request){
-       
+    @ResponseBody
+    public WechatUserHis addFourObj(HttpServletRequest request){
+       String[] userinfos = request.getParameterValues("userinfo");
+       String[] grades = request.getParameterValues("grade");
+       String[] customers = request.getParameterValues("customer");
+       String[] sales = request.getParameterValues("sales");
+       wechatBehServiceImpl.addWechatBeh(Strings2listUtil.Strings2list(userinfos));
+       wechatCusActionServiceImpl.addWechatCusAction(Strings2listUtil.Strings2list(customers));
+       wechatGradeServiceImpl.addWechatGrade(Strings2listUtil.Strings2list(grades));
+       wechatSalesActionServiceImpl.addWechatSales(Strings2listUtil.Strings2list(sales));
+       //只为返回一个对象 没有任何实际意义
+       return new WechatUserHis();
     }
+    @RequestMapping("updateWcValBeh")
+    @ResponseBody
+    public WechatUserHis updateWcValBeh(WechatValueBeh wechatValueBeh){
+//    	String event_type = request.getParameter("event_type");
+//    	String userinfo = request.getParameter("userinfo");
+//    	String grade = request.getParameter("grade");
+//    	String customer = request.getParameter("customer");
+//    	String sales = request.getParameter("sales");
+    	wechatValueBehServiceImpl.updateWcValBeh(wechatValueBeh);
+    	wechatUserHisServiceImpl.updateByWcValBeh(wechatValueBeh);
+    	//只为返回一个对象 没有任何实际意义
+    	return new WechatUserHis();
+    }
+    
 }
