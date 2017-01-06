@@ -1,5 +1,6 @@
 package com.pulan.utils;
 
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -10,6 +11,7 @@ public class TokenThread implements Runnable{
     public static String appId = "";
     public static String appSecret = "";
     public static AccessToken accessToken = new AccessToken();
+    private static Logger logger = Logger.getLogger(TokenThread.class);
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub

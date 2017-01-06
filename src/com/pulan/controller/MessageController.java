@@ -42,12 +42,12 @@ public class MessageController {
 	private WechatUserHisService wechatUserHisServiceImpl;
 	@Autowired
 	private UserInfoService userInfoServiceImpl;
-    @RequestMapping(value="getMessages")
-    public String getMessages(ModelMap mm){
-    	List<Message> list = messageServiceImpl.getMessages();
-    	System.out.println(list.get(0).toString());
-    	return "";
-    }
+//    @RequestMapping(value="getMessages")
+//    public String getMessages(ModelMap mm){
+//    	List<Message> list = messageServiceImpl.getMessages();
+//    	System.out.println(list.get(0).toString());
+//    	return "";
+//    }
     @RequestMapping(value="/lch",method={RequestMethod.GET})
     @ResponseBody
     public String validate(HttpServletRequest request,HttpServletResponse response) throws IOException{
@@ -59,10 +59,8 @@ public class MessageController {
 	       String nonce = request.getParameter("nonce");  
 	       // 随机字符串  
 	      String echostr = request.getParameter("echostr");  
-	      logger.info(signature+","+timestamp+","+nonce+","+echostr);
 	      // PrintWriter out = response.getWriter();  
 	       // 通过检验signature对请求进行校验，若校验成功则原样返回echostr，表示接入成功，否则接入失败  
-	       logger.info(SignUtil.checkSignature(signature, timestamp, nonce));
 	       if (SignUtil.checkSignature(signature, timestamp, nonce)) { 
 	    	  logger.info(echostr);
 	    	//  out.print("相互认证成功");
@@ -87,11 +85,9 @@ public class MessageController {
     	WechatValueBeh wechatValueBeh = wechatValueBehServiceImpl.getWechatValueBehByEventType(message.getContent());
     	//若匹配结果不为空 则插入wechat_user_his表中
     	if(wechatValueBeh!=null){
-       logger.info("wechatValueBeh不为空");
     	WechatUserHis wechatUserHis = new WechatUserHis(message.getFromUserName(),wechatValueBeh.getUserinfo(),
     			wechatValueBeh.getGrade(),wechatValueBeh.getSales(),wechatValueBeh.getCustomer());
     	//用户详细信息存入user_info表:用户产生的行为 匹配到价值才会新增到用户信息表
-    	logger.info("getFromUserName:"+message.getFromUserName());
     	userInfoServiceImpl.addUserInfo(message.getFromUserName());
     	wechatUserHisServiceImpl.addWechatUserHis(wechatUserHis);
     	}
@@ -105,13 +101,12 @@ public class MessageController {
         //调用response.getWriter().write()方法将消息的处理结果返回给用户
         
         //	MessageUtil.message(request,response);
-        logger.info(respMessage);
-        if(respMessage.contains("北京光年无限科技有限公司")){
+        if(respMessage.contains("北京光年无限科技有限公司")||respMessage.contains("张二宝")){
         	String respMessage1 = respMessage.replace("北京光年无限科技有限公司", "普兰大数据");
-        	responseMessage = respMessage1.replace("俞志晨", "你大哥");
-        }
-        if(respMessage.contains("张二宝")){
-        	responseMessage = respMessage.replace("张二宝", "徐凡");
+        	String respMessage2 = respMessage1.replace("张二宝", "普兰智慧机器人");
+        	responseMessage = respMessage2.replace("俞志晨", "你大哥");
+        }else{
+        	responseMessage=respMessage;
         }
     	return responseMessage;
     }

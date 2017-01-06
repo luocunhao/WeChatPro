@@ -27,13 +27,11 @@ public class UserInfoServiceImpl implements UserInfoService{
 	public void addUserInfo(String fromUserName) {
 		// TODO Auto-generated method stub
 		List<String> list = userInfoDao.getAllOpenId();
-		System.out.println("addUserInfostart...");
-		logger.info("fromUserName"+fromUserName);
 		if(!list.contains(fromUserName)){
 		String access_token = TokenThread.accessToken.getAccessToken();
-		logger.info(access_token);
-		System.out.println(access_token);
+		logger.info("access_token"+access_token);
 		String Url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token="+access_token+"&openid="+fromUserName+"&lang=zh_CN";
+		logger.info("url:"+Url);
 		JSONObject jsonObject = NetWorkHelper.httpsRequest(Url,"GET", null);
 		try {
 		String subscribe =	jsonObject.getString("subscribe");
@@ -51,11 +49,12 @@ public class UserInfoServiceImpl implements UserInfoService{
 		String groupid = jsonObject.getString("groupid");
 		UserInfo userInfo = new UserInfo(subscribe,openid, nickname, sex, language, city,
 				province, country, headimgurl, subscribe_time, "hehe", remark, groupid);
-		logger.info(userInfo.toString());
+		logger.info("userinfo:"+userInfo.toString());
 		userInfoDao.addUserInfo(userInfo);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+				logger.info("invalid credential, access_token is invalid");
+			
 		}
 		System.out.println("false");
 		}
