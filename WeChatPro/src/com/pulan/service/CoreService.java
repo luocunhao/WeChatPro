@@ -42,19 +42,10 @@ public class CoreService {
 			String content = message.getContent();
 			// 从HashMap中取出消息中的字段；
 			
-			logger.info("fromUserName is:" +fromUserName+" toUserName is:" +toUserName+" msgType is:" +msgType);
-			logger.info(msgType);
-			logger.info(MessageUtil.REQ_MESSAGE_TYPE_TEXT);
-			boolean flag = msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT);
-			if(flag){logger.info("true");
-			}else if(!flag){
-				logger.info("false");
-			}
 			
 			// 文本消息
 			if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {
 				//微信聊天机器人测试 2015-3-31
-				logger.info("text");
 				if(content!=null){
 					respContent = TulingApiProcess.getTulingResult(content);
 					logger.info("respContent:"+respContent);

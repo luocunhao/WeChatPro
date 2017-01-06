@@ -19,15 +19,17 @@ public class WechatUserHisServiceImpl implements WechatUserHisService{
 	@Override
 	public void addWechatUserHis(WechatUserHis wechatUserHis) {
 		// TODO Auto-generated method stub
+		String username = userInfoDao.getUsernameByOpenid(wechatUserHis.getUsername());
+		wechatUserHis.setUsername(username);
 		wechatUserHisDao.addWechatUserHis(wechatUserHis);
 	}
 	@Override
 	public WechatUserHis getNewUserBeh() {
 		// TODO Auto-generated method stub
-		WechatUserHis wechatUserHis = wechatUserHisDao.getNewUserBeh();
-		String username = userInfoDao.getUsernameByOpenid(wechatUserHis.getUsername());
-		wechatUserHis.setUsername(username);
-		return wechatUserHis;
+//		WechatUserHis wechatUserHis = wechatUserHisDao.getNewUserBeh();
+//		String username = userInfoDao.getUsernameByOpenid(wechatUserHis.getUsername());
+//		wechatUserHis.setUsername(username);
+		return wechatUserHisDao.getNewUserBeh();
 	}
 	@Override
 	public List<WechatUserHis> getAllUserHis() {
