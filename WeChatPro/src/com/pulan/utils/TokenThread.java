@@ -21,7 +21,6 @@ public class TokenThread implements Runnable{
                 if(null!=accessToken){
                     Thread.sleep(7000 * 1000);
                      //获取到access_token 休眠7000秒
-
                 }else{
               //获取的access_token为空 休眠3秒
                 	Thread.sleep(1000*3); 
