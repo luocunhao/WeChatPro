@@ -58,7 +58,8 @@ public class WechatController {
     @RequestMapping("getUserHisForPage")
     @ResponseBody
     public List<WechatUserHis> getUserHisForPage(int page){
-    	List<WechatUserHis> list= wechatUserHisServiceImpl.getUserHisForPage(page);
+    	int page1 =page*10-1;
+    	List<WechatUserHis> list= wechatUserHisServiceImpl.getUserHisForPage(page1);
     	return list;
     }
     @RequestMapping("getFourObj")
