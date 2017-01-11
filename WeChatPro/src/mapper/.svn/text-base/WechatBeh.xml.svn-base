@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pulan.dao.WechatBehDao">
+    
+    <!-- 先定义一个Interface，UserMapper，然后Mapper文件的namespace指向的就是这个Interface， UserInterface里定义的方法和UserMapper.xml文件中的一样, 
+        然后代码里直接使用接口 -->
+    
+    <resultMap type="WechatBeh" id="WechatBeh" >
+        <result property="id" column="id" />	
+        <result property="userinfo" column="userinfo" />	
+    </resultMap>
+   <select id="getAllWechatBeh" resultMap="WechatBeh">
+    select * from wecaht_behaviour
+   </select>
+   <insert id="addWechatBeh">
+   insert into wecaht_behaviour(userinfo) values(#{userinfo})
+   </insert>
+   <delete id="deleteAll">
+   delete from wecaht_behaviour
+   </delete>
+ 
+</mapper>

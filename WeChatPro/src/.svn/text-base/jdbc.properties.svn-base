@@ -1,0 +1,7 @@
+jdbc.url=jdbc:mysql://120.76.65.60:3306/wechat?useUnicode=true&CharacterEncoding=UTF-8
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.username=wechat
+jdbc.password=wechat1357
+
+
+

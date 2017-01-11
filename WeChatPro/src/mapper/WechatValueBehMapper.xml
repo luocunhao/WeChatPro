@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pulan.dao.WechatValueBehDao">
+    
+    <!-- 先定义一个Interface，UserMapper，然后Mapper文件的namespace指向的就是这个Interface， UserInterface里定义的方法和UserMapper.xml文件中的一样, 
+        然后代码里直接使用接口 -->
+    
+    <resultMap type="WechatValueBeh" id="WechatValueBeh" >
+        <result property="id" column="id" />	
+        <result property="event_type" column="event_type" />	
+        <result property="userinfo" column="userinfo" />
+        <result property="grade" column="grade" />
+        <result property="sales" column="sales" />
+        <result property="customer" column="customer"/>
+    </resultMap>
+   <select id="getWechatValueBehByEventType" parameterType="Map" resultMap="WechatValueBeh">
+    select * from wecaht_value_behaviour where event_type=#{event_type}
+   </select>
+  <insert id="addWcValBeh" parameterType="Map">
+    insert into wecaht_value_behaviour (event_type,userinfo,grade,sales,customer) 
+    values (#{event_type},#{userinfo},#{grade},#{sales},#{customer})
+   </insert>
+   <update id="updateWcValBeh" parameterType="Map">
+    update wecaht_value_behaviour set 
+    grade=#{grade},
+    sales=#{sales},
+    customer=#{customer}
+    where userinfo=#{userinfo}
+   </update>
+   <select id="getAllUseriInfo" resultType="String">
+   select userinfo from wecaht_value_behaviour
+   </select>
+</mapper>
